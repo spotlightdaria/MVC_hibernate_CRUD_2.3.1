@@ -8,7 +8,7 @@ import hiber.model.User;
 
 import java.util.List;
 @Service
-public class UserServiceImpl implements UserServise{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
@@ -19,14 +19,14 @@ public class UserServiceImpl implements UserServise{
 
     @Override
     @Transactional
-    public User getOne(Long id) {
-        return userDao.getOne(id);
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
     }
 
     @Override
     @Transactional
-    public void add(User user) {
-        userDao.add(user);
+    public void addUser(User user) {
+        userDao.addUser(user);
     }
 
     @Override

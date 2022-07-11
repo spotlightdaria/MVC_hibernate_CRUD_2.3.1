@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserDaoImpl implements UserDao{
 
-    @PersistenceContext(unitName = "em")
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getOne(Long id) {
+    public User getUserById(Long id) {
         TypedQuery<User> q = entityManager.createQuery(
                 "select u from User u where u.id = :id",
                 User.class
@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     @Transactional
-    public void add(User user) {
+    public void addUser(User user) {
         entityManager.persist(user);
     }
     @Transactional

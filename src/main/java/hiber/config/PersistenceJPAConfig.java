@@ -26,19 +26,19 @@ import java.util.Properties;
 public class PersistenceJPAConfig {
     @Autowired
     private Environment env;
-    @Bean(name = "em")
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em
+        LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean
                 = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(getDataSource());
+        localContainerEntityManagerFactoryBean.setDataSource(getDataSource());
 
-        em.setPackagesToScan(new String [] {"hiber"});
+        localContainerEntityManagerFactoryBean.setPackagesToScan(new String [] {"hiber"});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
+        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+        localContainerEntityManagerFactoryBean.setJpaProperties(additionalProperties());
 
-        return em;
+        return localContainerEntityManagerFactoryBean;
     }
     @Bean
     public DataSource getDataSource() {
@@ -62,7 +62,7 @@ public class PersistenceJPAConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    Properties additionalProperties() {
+    public Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "create");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
